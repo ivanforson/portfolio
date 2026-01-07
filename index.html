@@ -173,6 +173,83 @@ footer {
   font-size: 0.85rem;
   color: var(--muted);
 }
+
+/* ---------- mobile & tablet compatibility ---------- */
+
+/* prevent horizontal overflow */
+html, body {
+  overflow-x: hidden;
+}
+
+/* improve touch behaviour */
+.card,
+.toggle,
+.close {
+  touch-action: manipulation;
+}
+
+/* responsive hero spacing */
+@media (max-width: 900px) {
+  .hero {
+    padding: 80px 0 60px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+  }
+}
+
+/* grid optimisation for tablets */
+@media (max-width: 1024px) {
+  .grid {
+    gap: 22px;
+  }
+}
+
+/* grid optimisation for phones */
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .info {
+    padding: 14px 14px 18px;
+  }
+
+  footer {
+    text-align: center;
+  }
+
+  .footer-inner {
+    justify-content: center;
+  }
+}
+
+/* modal improvements for small screens */
+@media (max-width: 600px) {
+  .modal img {
+    max-width: 94vw;
+    max-height: 80vh;
+  }
+
+  .close {
+    top: 16px;
+    right: 18px;
+    font-size: 1.6rem;
+  }
+}
+
+/* toggle button usability on phones */
+@media (max-width: 600px) {
+  .toggle {
+    top: 16px;
+    right: 16px;
+    padding: 10px 16px;
+    font-size: 0.7rem;
+  }
+}
+
 </style>
 </head>
 
@@ -182,9 +259,9 @@ footer {
 
 <section class="hero">
   <div class="container">
-    <h1>brand & visual identity designer</h1>
+    <h1>Brand & visual identity designer</h1>
     <p>
-      selected branding projects including visual identities,
+      Selected branding projects including visual identities,
       campaigns, posters, and digital brand systems.
     </p>
   </div>
@@ -195,7 +272,7 @@ footer {
     <div class="grid">
 
       <div class="card">
-        <img src="images/brand.jpg" alt="branding project">
+        <img src="/brand.jpg" alt="branding project">
         <div class="info">
          <!-- <h3>brand identity concept</h3>
           <span>branding</span> -->
@@ -203,7 +280,7 @@ footer {
       </div>
 
       <div class="card">
-        <img src="images/chrisbel.png" alt="poster design">
+        <img src="/chrisbel.png" alt="poster design">
         <div class="info">
           <!--<h3>campaign poster series</h3>
           <span>poster design</span>-->
@@ -211,7 +288,7 @@ footer {
       </div>
 
       <div class="card">
-        <img src="images/signboard.jpg" alt="social branding">
+        <img src="/signboard.jpg" alt="social branding">
         <div class="info">
         <!--  <h3>social media brand kit</h3>
           <span>digital branding</span>-->
@@ -221,7 +298,7 @@ footer {
         <!-- existing cards above -->
 
 <div class="card">
-  <img src="images/smile '24.jpg" alt="logo design">
+  <img src="/smile '24.jpg" alt="logo design">
   <div class="info">
    <!-- <h3>logo & identity system</h3>
     <span>visual identity</span>-->
@@ -229,7 +306,7 @@ footer {
 </div>
 
 <div class="card">
-  <img src="images/smile.png" alt="brand guidelines">
+  <img src="/smile.png" alt="brand guidelines">
   <div class="info">
    <!-- <h3>brand guidelines layout</h3>
     <span>branding</span>-->
@@ -237,7 +314,7 @@ footer {
 </div>
 
 <div class="card">
-  <img src="images/kath.png" alt="packaging design">
+  <img src="/kath.png" alt="packaging design">
   <div class="info">
     <!--<h3>packaging design concept</h3>
     <span>brand packaging</span>-->
@@ -245,7 +322,7 @@ footer {
 </div>
 
 <div class="card">
-  <img src="images/brand.jpg" alt="campaign visuals">
+  <img src="/pokuaa.jpg" alt="campaign visuals">
   <div class="info">
    <!-- <h3>campaign visual system</h3>
     <span>campaign design</span>-->
@@ -253,26 +330,26 @@ footer {
 </div>
 
 <!-- commented out card 1 -->
-<!--
+
 <div class="card">
-  <img src="images/project-08.jpg" alt="editorial design">
+  <img src="/Donate-1.jpg" alt="editorial design">
   <div class="info">
-    <h3>editorial brand spread</h3>
-    <span>editorial design</span>
+    <!--<h3>editorial brand spread</h3>
+    <span>editorial design</span>-->
   </div>
 </div>
--->
+
 
 <!-- commented out card 2 -->
-<!--
+
 <div class="card">
-  <img src="images/project-09.jpg" alt="rebrand concept">
+  <img src="/6891395.jpg" alt="rebrand concept">
   <div class="info">
-    <h3>rebrand exploration</h3>
-    <span>brand strategy</span>
+    <!--<h3>rebrand exploration</h3>
+    <span>brand strategy</span>-->
   </div>
 </div>
--->
+
 
 
     </div>
@@ -295,18 +372,53 @@ footer {
 </div>
 
 <script>
-/* image preview */
-const cards = document.querySelectorAll(".card img");
+/* image preview with scroll navigation */
+const images = Array.from(document.querySelectorAll(".card img"));
 const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modal-img");
 
-cards.forEach(img => {
-  img.addEventListener("click", () => {
-    modal.classList.add("active");
-    modalImg.src = img.src;
-  });
+let currentIndex = 0;
+
+function openModal(index) {
+  currentIndex = index;
+  modalImg.src = images[currentIndex].src;
+  modal.classList.add("active");
+}
+
+function showNext() {
+  currentIndex = (currentIndex + 1) % images.length;
+  modalImg.src = images[currentIndex].src;
+}
+
+function showPrev() {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  modalImg.src = images[currentIndex].src;
+}
+
+images.forEach((img, index) => {
+  img.addEventListener("click", () => openModal(index));
 });
 
+/* mouse wheel / trackpad scroll */
+modal.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  if (e.deltaY > 0) {
+    showNext();
+  } else {
+    showPrev();
+  }
+}, { passive: false });
+
+/* keyboard navigation */
+document.addEventListener("keydown", (e) => {
+  if (!modal.classList.contains("active")) return;
+
+  if (e.key === "ArrowRight") showNext();
+  if (e.key === "ArrowLeft") showPrev();
+  if (e.key === "Escape") modal.classList.remove("active");
+});
+
+/* click to close */
 modal.addEventListener("click", () => {
   modal.classList.remove("active");
 });
@@ -324,7 +436,22 @@ toggle.addEventListener("click", () => {
     document.body.classList.contains("light") ? "light" : "dark"
   );
 });
+
+/* touch swipe support */
+let touchStartX = 0;
+
+modal.addEventListener("touchstart", e => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+modal.addEventListener("touchend", e => {
+  const diff = e.changedTouches[0].screenX - touchStartX;
+  if (diff > 50) showPrev();
+  if (diff < -50) showNext();
+});
+
 </script>
+
 
 </body>
 </html>
