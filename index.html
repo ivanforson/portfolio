@@ -1,457 +1,276 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>branding portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>k & b — our wedding</title>
+
+<!-- google fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-/* ---------- themes ---------- */
-:root {
-  --bg: #0e0e0e;
-  --card: #151515;
-  --border: #242424;
-  --text: #f2f2f2;
-  --muted: #9a9a9a;
-  --overlay: rgba(0,0,0,0.85);
-}
-
-body.light {
-  --bg: #f4f4f4;
-  --card: #ffffff;
-  --border: #e2e2e2;
-  --text: #111111;
-  --muted: #666666;
-  --overlay: rgba(0,0,0,0.8);
-}
-
-/* ---------- base ---------- */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: inter, -apple-system, blinkmacsystemfont, "segoe ui", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  transition: background 0.3s ease, color 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  background: #f9f6f2;
+  colour: #3f3a36;
+  line-height: 1.8;
 }
 
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 22px;
+/* sections */
+section {
+  padding: 5rem 1.5rem;
+  max-width: 1100px;
+  margin: auto;
+  text-align: centre;
 }
 
-/* ---------- toggle ---------- */
-.toggle {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 100;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 8px 14px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  cursor: pointer;
+/* fade animation */
+.fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.9s ease;
 }
 
-/* ---------- hero ---------- */
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* hero */
 .hero {
-  padding: 110px 0 80px;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: centre;
 }
 
 .hero h1 {
-  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 600;
-  margin-bottom: 16px;
+  margin: 1rem 0;
 }
 
-.hero p {
-  max-width: 560px;
-  color: var(--muted);
+.script {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  colour: #b59b7c;
 }
 
-/* ---------- grid ---------- */
-.portfolio {
-  padding-bottom: 110px;
+.date {
+  letter-spacing: 3px;
+  font-size: 0.9rem;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 28px;
-}
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.card:hover {
-  transform: translatey(-6px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
-}
-
-.card img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.card:hover img {
-  transform: scale(1.06);
-}
-
-.info {
-  padding: 18px 18px 22px;
-}
-
-.info h3 {
+/* story */
+.story p {
+  max-width: 700px;
+  margin: auto;
   font-size: 1rem;
+}
+
+/* gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.image-box {
+  background: #e8e2da;
+  aspect-ratio: 3 / 4;
+  border-radius: 6px;
+}
+
+/* details */
+.details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+}
+
+.details h3 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 0.5rem;
+}
+
+/* countdown */
+.countdown h2 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 2rem;
+}
+
+#timer {
+  display: flex;
+  justify-content: centre;
+  gap: 2rem;
+}
+
+#timer span {
+  display: block;
+  font-size: 2rem;
   font-weight: 500;
-  margin-bottom: 6px;
 }
 
-.info span {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
+#timer small {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
 }
 
-/* ---------- modal ---------- */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: var(--overlay);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-}
-
-.modal.active {
-  display: flex;
-}
-
-.modal img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-}
-
-.close {
-  position: absolute;
-  top: 24px;
-  right: 28px;
-  font-size: 1.4rem;
-  cursor: pointer;
-  color: #ffffff;
-}
-
-/* ---------- footer ---------- */
+/* footer */
 footer {
-  border-top: 1px solid var(--border);
-  padding: 34px 0;
+  padding: 3rem 1.5rem;
+  text-align: centre;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.5rem;
+  colour: #b59b7c;
 }
 
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-size: 0.85rem;
-  color: var(--muted);
+/* music toggle */
+.music-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ffffff;
+  border: none;
+  padding: 0.8rem 1rem;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-/* ---------- mobile & tablet compatibility ---------- */
-
-/* prevent horizontal overflow */
-html, body {
-  overflow-x: hidden;
-}
-
-/* improve touch behaviour */
-.card,
-.toggle,
-.close {
-  touch-action: manipulation;
-}
-
-/* responsive hero spacing */
-@media (max-width: 900px) {
-  .hero {
-    padding: 80px 0 60px;
-  }
-
-  .hero h1 {
-    font-size: clamp(1.8rem, 6vw, 2.6rem);
-  }
-}
-
-/* grid optimisation for tablets */
-@media (max-width: 1024px) {
-  .grid {
-    gap: 22px;
-  }
-}
-
-/* grid optimisation for phones */
+/* mobile */
 @media (max-width: 600px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .info {
-    padding: 14px 14px 18px;
-  }
-
-  footer {
-    text-align: center;
-  }
-
-  .footer-inner {
-    justify-content: center;
+  #timer {
+    gap: 1rem;
   }
 }
-
-/* modal improvements for small screens */
-@media (max-width: 600px) {
-  .modal img {
-    max-width: 94vw;
-    max-height: 80vh;
-  }
-
-  .close {
-    top: 16px;
-    right: 18px;
-    font-size: 1.6rem;
-  }
-}
-
-/* toggle button usability on phones */
-@media (max-width: 600px) {
-  .toggle {
-    top: 16px;
-    right: 16px;
-    padding: 10px 16px;
-    font-size: 0.7rem;
-  }
-}
-
 </style>
 </head>
 
 <body>
 
-<button class="toggle">light / dark</button>
+<!-- background music -->
+<audio id="bg-music" loop>
+  <!-- replace this with your own music file -->
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-<section class="hero">
-  <div class="container">
-    <h1>Brand & visual identity designer</h1>
-    <p>
-      Selected branding projects including visual identities,
-      campaigns, posters, and digital brand systems.
-    </p>
+<button class="music-toggle" id="musicBtn">play music ♫</button>
+
+<!-- hero -->
+<section class="hero fade">
+  <p class="script">we are getting married</p>
+  <h1>k &nbsp;♡&nbsp; b</h1>
+  <p class="date">07 · 02 · 2026</p>
+</section>
+
+<!-- story -->
+<section class="story fade">
+  <p>
+    with hearts full of love, we invite you to celebrate the beginning of our
+    forever. join us for a day filled with joy, laughter, and timeless memories.
+  </p>
+</section>
+
+<!-- gallery -->
+<section class="gallery fade">
+  <div class="image-box"></div>
+  <div class="image-box"></div>
+  <div class="image-box"></div>
+  <div class="image-box"></div>
+  <div class="image-box"></div>
+  <div class="image-box"></div>
+</section>
+
+<!-- details -->
+<section class="details fade">
+  <div>
+    <h3>ceremony</h3>
+    <p>saturday</p>
+    <p>07 february 2026</p>
+  </div>
+
+  <div>
+    <h3>venue</h3>
+    <p>to be announced</p>
+    <p>accra, ghana</p>
+  </div>
+
+  <div>
+    <h3>time</h3>
+    <p>2:00 pm</p>
   </div>
 </section>
 
-<section class="portfolio">
-  <div class="container">
-    <div class="grid">
-
-      <div class="card">
-        <img src="brand.jpg" alt="branding project">
-        <div class="info">
-         <!-- <h3>brand identity concept</h3>
-          <span>branding</span> -->
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="chrisbel.png" alt="poster design">
-        <div class="info">
-          <!--<h3>campaign poster series</h3>
-          <span>poster design</span>-->
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="signboard.jpg" alt="social branding">
-        <div class="info">
-        <!--  <h3>social media brand kit</h3>
-          <span>digital branding</span>-->
-        </div>
-      </div>
-
-        <!-- existing cards above -->
-
-<div class="card">
-  <img src="smile '24.jpg" alt="logo design">
-  <div class="info">
-   <!-- <h3>logo & identity system</h3>
-    <span>visual identity</span>-->
-  </div>
-</div>
-
-<div class="card">
-  <img src="smile.png" alt="brand guidelines">
-  <div class="info">
-   <!-- <h3>brand guidelines layout</h3>
-    <span>branding</span>-->
-  </div>
-</div>
-
-<div class="card">
-  <img src="kath.png" alt="packaging design">
-  <div class="info">
-    <!--<h3>packaging design concept</h3>
-    <span>brand packaging</span>-->
-  </div>
-</div>
-
-<div class="card">
-  <img src="pokuaa.jpg" alt="campaign visuals">
-  <div class="info">
-   <!-- <h3>campaign visual system</h3>
-    <span>campaign design</span>-->
-  </div>
-</div>
-
-<!-- commented out card 1 -->
-
-<div class="card">
-  <img src="Donate-1.jpg" alt="editorial design">
-  <div class="info">
-    <!--<h3>editorial brand spread</h3>
-    <span>editorial design</span>-->
-  </div>
-</div>
-
-
-<!-- commented out card 2 -->
-
-<div class="card">
-  <img src="6891395.jpg" alt="rebrand concept">
-  <div class="info">
-    <!--<h3>rebrand exploration</h3>
-    <span>brand strategy</span>-->
-  </div>
-</div>
-
-
-
-    </div>
+<!-- countdown -->
+<section class="countdown fade">
+  <h2>counting the days</h2>
+  <div id="timer">
+    <div><span id="days">0</span><small>days</small></div>
+    <div><span id="hours">0</span><small>hours</small></div>
+    <div><span id="minutes">0</span><small>minutes</small></div>
+    <div><span id="seconds">0</span><small>seconds</small></div>
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div>© ivanForson</div>
-     <!-- <div>instagram · behance · email</div> -->
-    </div>
-  </div>
+  <p>with love, k & b</p>
 </footer>
 
-<!-- modal -->
-<div class="modal" id="modal">
-  <span class="close">✕</span>
-  <img id="modal-img">
-</div>
-
 <script>
-/* image preview with scroll navigation */
-const images = Array.from(document.querySelectorAll(".card img"));
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modal-img");
+// fade on scroll
+const faders = document.querySelectorAll('.fade');
 
-let currentIndex = 0;
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+}, { threshold: 0.2 });
 
-function openModal(index) {
-  currentIndex = index;
-  modalImg.src = images[currentIndex].src;
-  modal.classList.add("active");
-}
+faders.forEach(el => observer.observe(el));
 
-function showNext() {
-  currentIndex = (currentIndex + 1) % images.length;
-  modalImg.src = images[currentIndex].src;
-}
+// countdown
+const weddingDate = new Date('2026-02-07T14:00:00').getTime();
 
-function showPrev() {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  modalImg.src = images[currentIndex].src;
-}
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = weddingDate - now;
+  if (diff < 0) return;
 
-images.forEach((img, index) => {
-  img.addEventListener("click", () => openModal(index));
-});
+  document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+  document.getElementById('hours').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  document.getElementById('minutes').innerText = Math.floor((diff / (1000 * 60)) % 60);
+  document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60);
+}, 1000);
 
-/* mouse wheel / trackpad scroll */
-modal.addEventListener("wheel", (e) => {
-  e.preventDefault();
-  if (e.deltaY > 0) {
-    showNext();
+// music toggle
+const music = document.getElementById('bg-music');
+const btn = document.getElementById('musicBtn');
+let playing = false;
+
+btn.addEventListener('click', () => {
+  if (!playing) {
+    music.play();
+    btn.textContent = 'pause music ❚❚';
   } else {
-    showPrev();
+    music.pause();
+    btn.textContent = 'play music ♫';
   }
-}, { passive: false });
-
-/* keyboard navigation */
-document.addEventListener("keydown", (e) => {
-  if (!modal.classList.contains("active")) return;
-
-  if (e.key === "ArrowRight") showNext();
-  if (e.key === "ArrowLeft") showPrev();
-  if (e.key === "Escape") modal.classList.remove("active");
+  playing = !playing;
 });
-
-/* click to close */
-modal.addEventListener("click", () => {
-  modal.classList.remove("active");
-});
-
-/* theme toggle */
-const toggle = document.querySelector(".toggle");
-const savedTheme = localStorage.getItem("theme");
-
-if (savedTheme === "light") document.body.classList.add("light");
-
-toggle.addEventListener("click", () => {
-  document.body.classList.toggle("light");
-  localStorage.setItem(
-    "theme",
-    document.body.classList.contains("light") ? "light" : "dark"
-  );
-});
-
-/* touch swipe support */
-let touchStartX = 0;
-
-modal.addEventListener("touchstart", e => {
-  touchStartX = e.changedTouches[0].screenX;
-});
-
-modal.addEventListener("touchend", e => {
-  const diff = e.changedTouches[0].screenX - touchStartX;
-  if (diff > 50) showPrev();
-  if (diff < -50) showNext();
-});
-
 </script>
-
 
 </body>
 </html>
