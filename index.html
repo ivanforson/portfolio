@@ -21,6 +21,7 @@ body {
   background: var(--bg);
   color: var(--dark);
   text-align: center;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -31,6 +32,50 @@ section {
   padding: 3rem 1.2rem;
 }
 
+/* ================= REVEAL ================= */
+#reveal {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+#reveal.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.reveal-content {
+  text-align: center;
+  padding: 20px;
+}
+
+.reveal-content p {
+  font-style: italic;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+.reveal-content h1 {
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+}
+
+.reveal-btn {
+  padding: 14px 30px;
+  border-radius: 30px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* ================= fade reveal ================= */
 .fade {
   opacity: 0;
   transform: translateY(20px);
@@ -42,7 +87,7 @@ section {
   transform: translateY(0);
 }
 
-/* ===== cover ===== */
+/* ================= cover ================= */
 .cover {
   height: 90vh;
   position: relative;
@@ -71,7 +116,7 @@ section {
   font-style: italic;
 }
 
-/* ===== countdown ===== */
+/* ================= countdown ================= */
 .countdown {
   display: flex;
   justify-content: center;
@@ -85,17 +130,13 @@ section {
   min-width: 70px;
 }
 
-/* ===== calendar ===== */
+/* ================= calendar ================= */
 .calendar {
   max-width: 320px;
   margin: auto;
   background: #fff;
   border-radius: 12px;
   padding: 1rem;
-}
-
-.calendar h3 {
-  margin-bottom: 10px;
 }
 
 .calendar-grid {
@@ -115,7 +156,7 @@ section {
   border-radius: 50%;
 }
 
-/* ===== buttons ===== */
+/* ================= buttons ================= */
 .btn {
   display: block;
   width: 90%;
@@ -138,7 +179,7 @@ section {
   color: var(--accent);
 }
 
-/* ===== gallery ===== */
+/* ================= gallery ================= */
 .gallery {
   display: grid;
   grid-template-columns: repeat(2,1fr);
@@ -154,7 +195,7 @@ section {
   border-radius: 8px;
 }
 
-/* ===== itinerary ===== */
+/* ================= itinerary ================= */
 .itinerary {
   max-width: 400px;
   margin: auto;
@@ -165,7 +206,7 @@ section {
   margin: 10px 0;
 }
 
-/* ===== form ===== */
+/* ================= form ================= */
 form {
   max-width: 360px;
   margin: auto;
@@ -183,17 +224,30 @@ input, textarea {
 
 <body>
 
-<!-- ===== COVER ===== -->
+<!-- ================= AUDIO ================= -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8c7c2a1d5a.mp3">
+</audio>
+
+<!-- ================= OPENING REVEAL ================= -->
+<div id="reveal">
+  <div class="reveal-content">
+    <p>with joyful hearts</p>
+    <h1>ana & miguel</h1>
+    <button class="reveal-btn" onclick="openInvite()">open invitation</button>
+  </div>
+</div>
+
+<!-- ================= COVER ================= -->
 <section class="cover fade">
   <img src="https://images.unsplash.com/photo-1529634891201-7a6e5b1f1c89">
   <div class="cover-text">
-    <p>with joyful hearts</p>
-    <h1>ana & miguel</h1>
     <p>invite you to celebrate their love</p>
+    <h1>september 14, 2026</h1>
   </div>
 </section>
 
-<!-- ===== COUNTDOWN ===== -->
+<!-- ================= COUNTDOWN ================= -->
 <section class="fade">
   <h2>counting down to our day</h2>
   <div class="countdown">
@@ -204,7 +258,7 @@ input, textarea {
   </div>
 </section>
 
-<!-- ===== CALENDAR ===== -->
+<!-- ================= CALENDAR ================= -->
 <section class="fade">
   <div class="calendar">
     <h3>september 2026</h3>
@@ -219,14 +273,14 @@ input, textarea {
   </div>
 </section>
 
-<!-- ===== RECEPTION ===== -->
+<!-- ================= RECEPTION ================= -->
 <section class="fade">
   <h2>reception</h2>
   <p>saturday · september 14 · 4:00 pm</p>
   <p>tuscany countryside estate</p>
 </section>
 
-<!-- ===== LOCATION ===== -->
+<!-- ================= LOCATION ================= -->
 <section class="fade">
   <h2>location</h2>
   <a class="btn primary" href="https://maps.google.com/?q=Tuscany,Italy" target="_blank">
@@ -234,7 +288,7 @@ input, textarea {
   </a>
 </section>
 
-<!-- ===== ITINERARY ===== -->
+<!-- ================= ITINERARY ================= -->
 <section class="fade">
   <h2>itinerary</h2>
   <div class="itinerary">
@@ -245,13 +299,13 @@ input, textarea {
   </div>
 </section>
 
-<!-- ===== DRESS CODE ===== -->
+<!-- ================= DRESS CODE ================= -->
 <section class="fade">
   <h2>dress code</h2>
   <p>formal · earthy tones</p>
 </section>
 
-<!-- ===== GALLERY ===== -->
+<!-- ================= GALLERY ================= -->
 <section class="fade">
   <h2>our story</h2>
   <div class="gallery">
@@ -262,21 +316,20 @@ input, textarea {
   </div>
 </section>
 
-<!-- ===== CASH GIFT ===== -->
+<!-- ================= CASH GIFT ================= -->
 <section class="fade">
   <h2>cash gift</h2>
   <p>your presence is our greatest gift</p>
-  <p>if you wish to bless us:</p>
   <strong>bank / momo / zelle details</strong>
 </section>
 
-<!-- ===== PHOTO ALBUM ===== -->
+<!-- ================= PHOTO ALBUM ================= -->
 <section class="fade">
   <h2>guest photo album</h2>
-  <a class="btn outline" href="#">upload your photos</a>
+  <a class="btn outline" href="#">upload photos</a>
 </section>
 
-<!-- ===== RSVP ===== -->
+<!-- ================= RSVP ================= -->
 <section class="fade">
   <h2>rsvp</h2>
   <form>
@@ -287,7 +340,13 @@ input, textarea {
 </section>
 
 <script>
-/* countdown */
+/* ===== reveal ===== */
+function openInvite() {
+  document.getElementById("reveal").classList.add("hide");
+  document.getElementById("music").play();
+}
+
+/* ===== countdown ===== */
 const date = new Date("2026-09-14T16:00:00").getTime();
 setInterval(() => {
   const now = new Date().getTime();
@@ -299,7 +358,7 @@ setInterval(() => {
   s.innerText = Math.floor((t / 1000) % 60);
 }, 1000);
 
-/* scroll reveal */
+/* ===== scroll reveal ===== */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => e.isIntersecting && e.target.classList.add("show"));
 },{ threshold: .15 });
