@@ -33,6 +33,7 @@ body{
   justify-content:center;
   z-index:9999;
   transition:opacity 1s ease;
+  pointer-events:auto;
 }
 
 .intro.hidden{
@@ -63,6 +64,7 @@ body{
   padding:14px 28px;
   border-radius:30px;
   font-size:1rem;
+  cursor:pointer;
 }
 
 /* ================= SECTIONS ================= */
@@ -170,6 +172,7 @@ section{
   padding:14px;
   border-radius:50%;
   z-index:100;
+  cursor:pointer;
 }
 
 #music-label{
@@ -189,7 +192,8 @@ section{
 <body>
 
 <!-- ================= AUDIO ================= -->
-<audio id="music" loop>
+<!-- NOTE: NO AUTOPLAY — mobile-safe -->
+<audio id="music" loop preload="none">
   <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8c7c2a1d5a.mp3">
 </audio>
 
@@ -198,12 +202,13 @@ section{
   <div class="intro-content">
     <h1>ana & miguel</h1>
     <p>tap to open invitation</p>
-    <button onclick="openInvite()">open</button>
+    <button id="openBtn">open</button>
   </div>
 </div>
 
-<button id="musicBtn" onclick="toggleMusic()">⏸</button>
-<p id="music-label">🎵 background song playing</p>
+<!-- ================= MUSIC UI ================= -->
+<button id="musicBtn" onclick="toggleMusic()">▶</button>
+<p id="music-label">🎵 background song paused</p>
 
 <!-- ================= HERO ================= -->
 <section class="hero">
@@ -213,7 +218,7 @@ section{
   </div>
 </section>
 
-<!-- ================= COUNTDOWN + CALENDAR (FIXED) ================= -->
+<!-- ================= COUNTDOWN + CALENDAR ================= -->
 <section>
   <div class="section-inner reveal">
     <h2>we’re getting married in</h2>
@@ -225,7 +230,6 @@ section{
       <div><span id="s">00</span><br>sec</div>
     </div>
 
-    <!-- CALENDAR NOW VISIBLE HERE -->
     <div class="calendar">
       <p style="margin-bottom:10px;">save the date</p>
 
@@ -253,30 +257,55 @@ section{
 </section>
 
 <script>
-/* intro + music */
-const music=document.getElementById("music");
-const intro=document.getElementById("intro");
-function openInvite(){intro.classList.add("hidden");music.play();}
+/* ================= INTRO + MUSIC ================= */
+const music = document.getElementById("music");
+const intro = document.getElementById("intro");
+const openBtn = document.getElementById("openBtn");
+const musicBtn = document.getElementById("musicBtn");
+const musicLabel = document.getElementById("music-label");
+
+openBtn.addEventListener("click", () => {
+  intro.classList.add("hidden");
+
+  music.play().then(() => {
+    musicBtn.textContent = "⏸";
+    musicLabel.textContent = "🎵 background song playing";
+  }).catch(()=>{});
+});
+
 function toggleMusic(){
-  if(music.paused){music.play();musicBtn.textContent="⏸";music-label.textContent="🎵 background song playing";}
-  else{music.pause();musicBtn.textContent="▶";music-label.textContent="🎵 background song paused";}
+  if(music.paused){
+    music.play();
+    musicBtn.textContent="⏸";
+    musicLabel.textContent="🎵 background song playing";
+  } else {
+    music.pause();
+    musicBtn.textContent="▶";
+    musicLabel.textContent="🎵 background song paused";
+  }
 }
 
-/* countdown */
-const date=new Date("2026-09-14T16:00:00").getTime();
+/* ================= COUNTDOWN ================= */
+const date = new Date("2026-09-14T16:00:00").getTime();
+
 setInterval(()=>{
-  const d0=date-Date.now(); if(d0<0)return;
-  d.textContent=Math.floor(d0/86400000);
-  h.textContent=Math.floor(d0/3600000)%24;
-  m.textContent=Math.floor(d0/60000)%60;
-  s.textContent=Math.floor(d0/1000)%60;
+  const diff = date - Date.now();
+  if(diff < 0) return;
+
+  d.textContent = Math.floor(diff / 86400000);
+  h.textContent = Math.floor(diff / 3600000) % 24;
+  m.textContent = Math.floor(diff / 60000) % 60;
+  s.textContent = Math.floor(diff / 1000) % 60;
 },1000);
 
-/* reveal */
-const obs=new IntersectionObserver(e=>{
-  e.forEach(x=>x.isIntersecting&&x.target.classList.add("show"));
-},{threshold:.3});
-document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+/* ================= REVEAL ================= */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("show");
+  });
+},{threshold:0.3});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 </script>
 
 </body>
