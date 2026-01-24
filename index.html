@@ -3,30 +3,209 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wedding Invitation</title>
+  <title>Digital Wedding Invitation</title>
 
-  <!-- styles -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- google fonts -->
+  <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #f6f1eb;
+      --terracotta: #c46a4a;
+      --gold: #c9a24d;
+      --dark: #3a2f2a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ================= MUSIC ================= */
+    #music-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--terracotta);
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative;
+    }
+
+    #hero-image {
+      width: 100%;
+      height: 70vh;
+      object-fit: cover;
+      background: #ddd; /* placeholder background */
+    }
+
+    .hero-text {
+      position: absolute;
+      bottom: 15%;
+      width: 100%;
+      color: white;
+    }
+
+    #wedding-title {
+      font-size: 3rem;
+    }
+
+    #wedding-tagline {
+      font-style: italic;
+      opacity: 0.9;
+    }
+
+    /* ================= COUNTDOWN ================= */
+    .countdown-section {
+      padding: 3rem 1rem;
+    }
+
+    #countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    #countdown-timer div {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      min-width: 70px;
+    }
+
+    #countdown-timer span {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+
+    /* ================= DETAILS ================= */
+    .details {
+      padding: 2.5rem 1rem;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .primary-btn {
+      background: var(--terracotta);
+      color: white;
+      border: none;
+    }
+
+    .secondary-btn {
+      border: 1px solid var(--terracotta);
+      background: transparent;
+      color: var(--terracotta);
+    }
+
+    /* ================= GALLERY ================= */
+    .gallery {
+      padding: 3rem 1rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: #ccc;
+      border-radius: 6px;
+    }
+
+    /* ================= ACTIONS ================= */
+    .actions {
+      padding: 2rem 1rem;
+    }
+
+    /* ================= PLAYLIST ================= */
+    #playlist-section {
+      padding: 3rem 1rem;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 600px;
+      height: 380px;
+      border: none;
+    }
+
+    /* ================= FORM ================= */
+    .confirmation {
+      padding: 3rem 1rem;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    @media (max-width: 768px) {
+      #wedding-title {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- ================= MUSIC PLAYER ================= -->
+  <!-- ================= AUDIO PLAYER ================= -->
   <audio id="music-player" autoplay loop aria-label="background music">
-    <!-- placeholder audio source -->
+    <!-- placeholder audio -->
     <source src="audio-src-placeholder.mp3" type="audio/mpeg">
   </audio>
 
-  <button id="music-toggle" aria-label="play or pause music">
-    ⏸
-  </button>
+  <button id="music-toggle" aria-label="play or pause music">⏸</button>
 
-  <!-- ================= HEADER / HERO ================= -->
+  <!-- ================= HERO ================= -->
   <header class="hero">
-    <img id="hero-image" src="hero-image-placeholder.jpg" alt="couple banner image placeholder" />
+    <!-- placeholder image -->
+    <img id="hero-image" src="hero-image-placeholder.jpg" alt="wedding banner image">
 
     <div class="hero-text">
       <h1 id="wedding-title">Ana & Miguel</h1>
@@ -38,11 +217,11 @@
   <section class="countdown-section">
     <h2>we’re getting married in</h2>
 
-    <div id="countdown-timer" aria-label="wedding countdown timer">
-      <div><span id="days">00</span><small>days</small></div>
-      <div><span id="hours">00</span><small>hours</small></div>
-      <div><span id="minutes">00</span><small>minutes</small></div>
-      <div><span id="seconds">00</span><small>seconds</small></div>
+    <div id="countdown-timer" aria-label="countdown timer">
+      <div><span id="days">00</span><br>days</div>
+      <div><span id="hours">00</span><br>hours</div>
+      <div><span id="minutes">00</span><br>minutes</div>
+      <div><span id="seconds">00</span><br>seconds</div>
     </div>
   </section>
 
@@ -63,8 +242,8 @@
       id="location-link-btn"
       href="map-url-placeholder"
       target="_blank"
-      aria-label="open wedding location map"
       class="primary-btn"
+      aria-label="open map location"
     >
       view location
     </a>
@@ -75,45 +254,31 @@
     <h2>our moments</h2>
 
     <div class="gallery-grid">
-      <img id="gallery-img-1" src="img-src-placeholder.jpg" alt="gallery image 1">
-      <img id="gallery-img-2" src="img-src-placeholder.jpg" alt="gallery image 2">
-      <img id="gallery-img-3" src="img-src-placeholder.jpg" alt="gallery image 3">
-      <img id="gallery-img-4" src="img-src-placeholder.jpg" alt="gallery image 4">
-      <img id="gallery-img-5" src="img-src-placeholder.jpg" alt="gallery image 5">
-      <img id="gallery-img-6" src="img-src-placeholder.jpg" alt="gallery image 6">
-      <img id="gallery-img-7" src="img-src-placeholder.jpg" alt="gallery image 7">
-      <img id="gallery-img-8" src="img-src-placeholder.jpg" alt="gallery image 8">
+      <img id="gallery-img-1" src="img-src-placeholder.jpg" alt="gallery 1">
+      <img id="gallery-img-2" src="img-src-placeholder.jpg" alt="gallery 2">
+      <img id="gallery-img-3" src="img-src-placeholder.jpg" alt="gallery 3">
+      <img id="gallery-img-4" src="img-src-placeholder.jpg" alt="gallery 4">
+      <img id="gallery-img-5" src="img-src-placeholder.jpg" alt="gallery 5">
+      <img id="gallery-img-6" src="img-src-placeholder.jpg" alt="gallery 6">
+      <img id="gallery-img-7" src="img-src-placeholder.jpg" alt="gallery 7">
+      <img id="gallery-img-8" src="img-src-placeholder.jpg" alt="gallery 8">
     </div>
   </section>
 
   <!-- ================= ACTION BUTTONS ================= -->
   <section class="actions">
-    <a id="rsvp-btn" href="#rsvp-form" class="primary-btn" aria-label="rsvp">
-      rsvp
-    </a>
-
-    <a id="gift-btn" href="#gift-registry" class="secondary-btn" aria-label="gift registry">
-      gift registry
-    </a>
-
-    <button id="share-btn" class="secondary-btn" aria-label="share invitation">
-      share invitation
-    </button>
+    <a id="rsvp-btn" href="#rsvp-form" class="primary-btn">rsvp</a>
+    <a id="gift-btn" href="#gift-registry" class="secondary-btn">gift registry</a>
+    <button id="share-btn" class="secondary-btn">share invitation</button>
   </section>
 
   <!-- ================= PLAYLIST ================= -->
   <section id="playlist-section">
     <h2>our playlist</h2>
-
-    <!-- spotify embed placeholder -->
-    <iframe
-      src="spotify-embed-placeholder"
-      allow="encrypted-media"
-      aria-label="spotify playlist"
-    ></iframe>
+    <iframe src="spotify-embed-placeholder" aria-label="spotify playlist"></iframe>
   </section>
 
-  <!-- ================= CONFIRMATION FORM ================= -->
+  <!-- ================= FORM ================= -->
   <section class="confirmation">
     <h2>leave us a message</h2>
 
@@ -123,7 +288,7 @@
       method="post"
       aria-label="confirmation form"
     >
-      <input type="text" placeholder="your name" required />
+      <input type="text" placeholder="your name" required>
       <textarea placeholder="your message"></textarea>
       <button type="submit" class="primary-btn">send</button>
     </form>
@@ -133,6 +298,47 @@
     </a>
   </section>
 
-  <script src="script.js"></script>
+  <script>
+    /* ================= COUNTDOWN ================= */
+
+    // UPDATE THIS DATE ONLY
+    const weddingDate = new Date("2026-09-14T16:00:00").getTime();
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = weddingDate - now;
+
+      if (diff < 0) return;
+
+      document.getElementById("days").innerText =
+        Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById("hours").innerText =
+        Math.floor((diff / (1000 * 60 * 60)) % 24);
+      document.getElementById("minutes").innerText =
+        Math.floor((diff / (1000 * 60)) % 60);
+      document.getElementById("seconds").innerText =
+        Math.floor((diff / 1000) % 60);
+    }, 1000);
+
+    /* ================= MUSIC CONTROL ================= */
+    const music = document.getElementById("music-player");
+    const toggle = document.getElementById("music-toggle");
+
+    toggle.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        toggle.innerText = "⏸";
+      } else {
+        music.pause();
+        toggle.innerText = "▶";
+      }
+    });
+
+    /* ================= SHARE PLACEHOLDER ================= */
+    document.getElementById("share-btn").addEventListener("click", () => {
+      alert("share functionality placeholder");
+    });
+  </script>
+
 </body>
 </html>
