@@ -1,276 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Invitation</title>
 
-<title>k & b — our wedding</title>
+  <!-- styles -->
+  <link rel="stylesheet" href="styles.css" />
 
-<!-- google fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Montserrat', sans-serif;
-  background: #f9f6f2;
-  colour: #3f3a36;
-  line-height: 1.8;
-}
-
-/* sections */
-section {
-  padding: 5rem 1.5rem;
-  max-width: 1100px;
-  margin: auto;
-  text-align: centre;
-}
-
-/* fade animation */
-.fade {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.9s ease;
-}
-
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* hero */
-.hero {
-  min-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: centre;
-}
-
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 6vw, 5rem);
-  font-weight: 600;
-  margin: 1rem 0;
-}
-
-.script {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2rem;
-  colour: #b59b7c;
-}
-
-.date {
-  letter-spacing: 3px;
-  font-size: 0.9rem;
-}
-
-/* story */
-.story p {
-  max-width: 700px;
-  margin: auto;
-  font-size: 1rem;
-}
-
-/* gallery */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.image-box {
-  background: #e8e2da;
-  aspect-ratio: 3 / 4;
-  border-radius: 6px;
-}
-
-/* details */
-.details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 3rem;
-}
-
-.details h3 {
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 0.5rem;
-}
-
-/* countdown */
-.countdown h2 {
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 2rem;
-}
-
-#timer {
-  display: flex;
-  justify-content: centre;
-  gap: 2rem;
-}
-
-#timer span {
-  display: block;
-  font-size: 2rem;
-  font-weight: 500;
-}
-
-#timer small {
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-}
-
-/* footer */
-footer {
-  padding: 3rem 1.5rem;
-  text-align: centre;
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.5rem;
-  colour: #b59b7c;
-}
-
-/* music toggle */
-.music-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #ffffff;
-  border: none;
-  padding: 0.8rem 1rem;
-  border-radius: 30px;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-/* mobile */
-@media (max-width: 600px) {
-  #timer {
-    gap: 1rem;
-  }
-}
-</style>
+  <!-- google fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- background music -->
-<audio id="bg-music" loop>
-  <!-- replace this with your own music file -->
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+  <!-- ================= MUSIC PLAYER ================= -->
+  <audio id="music-player" autoplay loop aria-label="background music">
+    <!-- placeholder audio source -->
+    <source src="audio-src-placeholder.mp3" type="audio/mpeg">
+  </audio>
 
-<button class="music-toggle" id="musicBtn">play music ♫</button>
+  <button id="music-toggle" aria-label="play or pause music">
+    ⏸
+  </button>
 
-<!-- hero -->
-<section class="hero fade">
-  <p class="script">we are getting married</p>
-  <h1>k &nbsp;♡&nbsp; b</h1>
-  <p class="date">07 · 02 · 2026</p>
-</section>
+  <!-- ================= HEADER / HERO ================= -->
+  <header class="hero">
+    <img id="hero-image" src="hero-image-placeholder.jpg" alt="couple banner image placeholder" />
 
-<!-- story -->
-<section class="story fade">
-  <p>
-    with hearts full of love, we invite you to celebrate the beginning of our
-    forever. join us for a day filled with joy, laughter, and timeless memories.
-  </p>
-</section>
+    <div class="hero-text">
+      <h1 id="wedding-title">Ana & Miguel</h1>
+      <p id="wedding-tagline">a love written in the earth</p>
+    </div>
+  </header>
 
-<!-- gallery -->
-<section class="gallery fade">
-  <div class="image-box"></div>
-  <div class="image-box"></div>
-  <div class="image-box"></div>
-  <div class="image-box"></div>
-  <div class="image-box"></div>
-  <div class="image-box"></div>
-</section>
+  <!-- ================= COUNTDOWN ================= -->
+  <section class="countdown-section">
+    <h2>we’re getting married in</h2>
 
-<!-- details -->
-<section class="details fade">
-  <div>
-    <h3>ceremony</h3>
-    <p>saturday</p>
-    <p>07 february 2026</p>
-  </div>
+    <div id="countdown-timer" aria-label="wedding countdown timer">
+      <div><span id="days">00</span><small>days</small></div>
+      <div><span id="hours">00</span><small>hours</small></div>
+      <div><span id="minutes">00</span><small>minutes</small></div>
+      <div><span id="seconds">00</span><small>seconds</small></div>
+    </div>
+  </section>
 
-  <div>
-    <h3>venue</h3>
-    <p>to be announced</p>
-    <p>accra, ghana</p>
-  </div>
+  <!-- ================= DETAILS ================= -->
+  <section class="details">
+    <p id="event-date-time">
+      saturday, 14 september 2026 · 4:00 pm
+    </p>
 
-  <div>
-    <h3>time</h3>
-    <p>2:00 pm</p>
-  </div>
-</section>
+    <div id="event-details">
+      <p>
+        join us as we celebrate our union surrounded by love, family,
+        and friends. ceremony and reception to follow.
+      </p>
+    </div>
 
-<!-- countdown -->
-<section class="countdown fade">
-  <h2>counting the days</h2>
-  <div id="timer">
-    <div><span id="days">0</span><small>days</small></div>
-    <div><span id="hours">0</span><small>hours</small></div>
-    <div><span id="minutes">0</span><small>minutes</small></div>
-    <div><span id="seconds">0</span><small>seconds</small></div>
-  </div>
-</section>
+    <a
+      id="location-link-btn"
+      href="map-url-placeholder"
+      target="_blank"
+      aria-label="open wedding location map"
+      class="primary-btn"
+    >
+      view location
+    </a>
+  </section>
 
-<footer>
-  <p>with love, k & b</p>
-</footer>
+  <!-- ================= GALLERY ================= -->
+  <section class="gallery">
+    <h2>our moments</h2>
 
-<script>
-// fade on scroll
-const faders = document.querySelectorAll('.fade');
+    <div class="gallery-grid">
+      <img id="gallery-img-1" src="img-src-placeholder.jpg" alt="gallery image 1">
+      <img id="gallery-img-2" src="img-src-placeholder.jpg" alt="gallery image 2">
+      <img id="gallery-img-3" src="img-src-placeholder.jpg" alt="gallery image 3">
+      <img id="gallery-img-4" src="img-src-placeholder.jpg" alt="gallery image 4">
+      <img id="gallery-img-5" src="img-src-placeholder.jpg" alt="gallery image 5">
+      <img id="gallery-img-6" src="img-src-placeholder.jpg" alt="gallery image 6">
+      <img id="gallery-img-7" src="img-src-placeholder.jpg" alt="gallery image 7">
+      <img id="gallery-img-8" src="img-src-placeholder.jpg" alt="gallery image 8">
+    </div>
+  </section>
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('show');
-    }
-  });
-}, { threshold: 0.2 });
+  <!-- ================= ACTION BUTTONS ================= -->
+  <section class="actions">
+    <a id="rsvp-btn" href="#rsvp-form" class="primary-btn" aria-label="rsvp">
+      rsvp
+    </a>
 
-faders.forEach(el => observer.observe(el));
+    <a id="gift-btn" href="#gift-registry" class="secondary-btn" aria-label="gift registry">
+      gift registry
+    </a>
 
-// countdown
-const weddingDate = new Date('2026-02-07T14:00:00').getTime();
+    <button id="share-btn" class="secondary-btn" aria-label="share invitation">
+      share invitation
+    </button>
+  </section>
 
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = weddingDate - now;
-  if (diff < 0) return;
+  <!-- ================= PLAYLIST ================= -->
+  <section id="playlist-section">
+    <h2>our playlist</h2>
 
-  document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-  document.getElementById('hours').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  document.getElementById('minutes').innerText = Math.floor((diff / (1000 * 60)) % 60);
-  document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60);
-}, 1000);
+    <!-- spotify embed placeholder -->
+    <iframe
+      src="spotify-embed-placeholder"
+      allow="encrypted-media"
+      aria-label="spotify playlist"
+    ></iframe>
+  </section>
 
-// music toggle
-const music = document.getElementById('bg-music');
-const btn = document.getElementById('musicBtn');
-let playing = false;
+  <!-- ================= CONFIRMATION FORM ================= -->
+  <section class="confirmation">
+    <h2>leave us a message</h2>
 
-btn.addEventListener('click', () => {
-  if (!playing) {
-    music.play();
-    btn.textContent = 'pause music ❚❚';
-  } else {
-    music.pause();
-    btn.textContent = 'play music ♫';
-  }
-  playing = !playing;
-});
-</script>
+    <form
+      id="confirm-form"
+      action="form-action-placeholder"
+      method="post"
+      aria-label="confirmation form"
+    >
+      <input type="text" placeholder="your name" required />
+      <textarea placeholder="your message"></textarea>
+      <button type="submit" class="primary-btn">send</button>
+    </form>
 
+    <a id="guest-album-btn" href="#guest-album" class="secondary-btn">
+      upload guest photos
+    </a>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
