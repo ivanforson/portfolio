@@ -1,318 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wedding Invitation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation</title>
 
-  <!-- fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --cream: #f6f1eb;
-      --terracotta: #c46a4a;
-      --dark: #3a2f2a;
-    }
+<style>
+:root{
+  --bg:#f6f1eb;
+  --accent:#c46a4a;
+  --dark:#2f2622;
+}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+*{margin:0;padding:0;box-sizing:border-box}
 
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: var(--cream);
-      color: var(--dark);
-      text-align: center;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+body{
+  font-family:'Montserrat',sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+  overflow-x:hidden;
+}
 
-    h1, h2 {
-      font-family: 'Playfair Display', serif;
-    }
+/* ================= INTRO COVER ================= */
+.intro{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  transition:opacity 1s ease;
+}
 
-    /* ================= animations ================= */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
+.intro.hidden{
+  opacity:0;
+  pointer-events:none;
+}
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.intro-content{
+  text-align:center;
+  color:white;
+  padding:20px;
+}
 
-    /* ================= music ================= */
-    #music-toggle {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      background: var(--terracotta);
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 1000;
-      font-size: 16px;
-    }
+.intro-content h1{
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;
+  margin-bottom:10px;
+}
 
-    /* ================= hero ================= */
-    .hero {
-      position: relative;
-    }
+.intro-content p{
+  opacity:.8;
+  margin-bottom:20px;
+}
 
-    #hero-image {
-      width: 100%;
-      height: 75vh;
-      object-fit: cover;
-    }
+.intro-content button{
+  background:var(--accent);
+  color:white;
+  border:none;
+  padding:14px 28px;
+  border-radius:30px;
+  font-size:1rem;
+}
 
-    .hero-text {
-      position: absolute;
-      bottom: 18%;
-      width: 100%;
-      color: white;
-      padding: 0 16px;
-      text-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    }
+/* ================= SECTIONS ================= */
+section{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px 16px;
+}
 
-    #wedding-title {
-      font-size: 2.4rem;
-    }
+.section-inner{
+  max-width:420px;
+}
 
-    #wedding-tagline {
-      font-style: italic;
-      font-size: 1rem;
-      opacity: 0.95;
-    }
+/* ================= HERO ================= */
+.hero{
+  background:url("https://images.unsplash.com/photo-1529634891201-7a6e5b1f1c89") center/cover no-repeat;
+  color:white;
+  position:relative;
+}
 
-    /* ================= sections ================= */
-    section {
-      padding: 2.5rem 1rem;
-    }
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.35);
+}
 
-    /* ================= countdown ================= */
-    #countdown-timer {
-      display: flex;
-      justify-content: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
+.hero .section-inner{
+  position:relative;
+  z-index:2;
+}
 
-    #countdown-timer div {
-      background: white;
-      padding: 0.8rem;
-      border-radius: 8px;
-      min-width: 68px;
-    }
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:2.6rem;
+}
 
-    /* ================= buttons ================= */
-    .primary-btn,
-    .secondary-btn {
-      display: block;
-      width: 90%;
-      max-width: 320px;
-      margin: 12px auto;
-      padding: 14px;
-      border-radius: 30px;
-      font-size: 1rem;
-      text-decoration: none;
-      cursor: pointer;
-    }
+.hero p{
+  font-style:italic;
+  margin-top:10px;
+}
 
-    .primary-btn {
-      background: var(--terracotta);
-      color: white;
-      border: none;
-    }
+/* ================= TEXT ANIM ================= */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:all 1s ease;
+}
 
-    .secondary-btn {
-      background: transparent;
-      color: var(--terracotta);
-      border: 1px solid var(--terracotta);
-    }
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
 
-    /* ================= gallery ================= */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      max-width: 500px;
-      margin: auto;
-    }
+/* ================= COUNTDOWN ================= */
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
+}
 
-    .gallery-grid img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
+.countdown div{
+  background:white;
+  padding:10px;
+  border-radius:8px;
+  min-width:60px;
+}
 
-    /* ================= song section ================= */
-    .song-section {
-      padding-top: 1.5rem;
-    }
+/* ================= IMAGE SECTION ================= */
+.image-section{
+  background-size:cover;
+  background-position:center;
+  position:relative;
+}
 
-    .song-title {
-      font-style: italic;
-      font-size: 0.95rem;
-      opacity: 0.8;
-      margin-bottom: 10px;
-    }
+.image-section::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.35);
+}
 
-    /* ================= form ================= */
-    form {
-      max-width: 360px;
-      margin: auto;
-    }
+.image-section .section-inner{
+  position:relative;
+  color:white;
+  z-index:2;
+}
 
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-  </style>
+/* ================= BUTTONS ================= */
+.btn{
+  display:block;
+  margin:12px auto;
+  padding:14px;
+  border-radius:30px;
+  text-decoration:none;
+  background:var(--accent);
+  color:white;
+  font-size:1rem;
+}
+
+/* ================= MUSIC BUTTON ================= */
+#musicBtn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--accent);
+  color:white;
+  border:none;
+  padding:14px;
+  border-radius:50%;
+  z-index:100;
+}
+
+/* ================= FORM ================= */
+form input,form textarea{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+</style>
 </head>
 
 <body>
 
-  <!-- ================= audio ================= -->
-  <!-- SAME SONG USED FOR BACKGROUND + MANUAL CONTROL -->
-  <audio id="music-player" autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8c7c2a1d5a.mp3" type="audio/mpeg">
-  </audio>
+<!-- ================= AUDIO ================= -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8c7c2a1d5a.mp3" type="audio/mpeg">
+</audio>
 
-  <button id="music-toggle" aria-label="play or pause music">⏸</button>
+<!-- ================= INTRO ================= -->
+<div class="intro" id="intro">
+  <div class="intro-content">
+    <h1>ana & miguel</h1>
+    <p>tap to open invitation</p>
+    <button onclick="openInvite()">open</button>
+  </div>
+</div>
 
-  <!-- ================= hero ================= -->
-  <header class="hero fade-in">
-    <img
-      id="hero-image"
-      src="https://images.unsplash.com/photo-1529634891201-7a6e5b1f1c89"
-      alt="wedding couple"
-    >
-    <div class="hero-text">
-      <h1 id="wedding-title">ana & miguel</h1>
-      <p id="wedding-tagline">a love written in the earth</p>
-    </div>
-  </header>
+<button id="musicBtn" onclick="toggleMusic()">⏸</button>
 
-  <!-- ================= countdown ================= -->
-  <section class="fade-in">
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="section-inner reveal">
+    <h1>ana & miguel</h1>
+    <p>a love written in the earth</p>
+  </div>
+</section>
+
+<!-- ================= COUNTDOWN ================= -->
+<section>
+  <div class="section-inner reveal">
     <h2>we’re getting married in</h2>
-    <div id="countdown-timer">
-      <div><span id="days">00</span><br>days</div>
-      <div><span id="hours">00</span><br>hours</div>
-      <div><span id="minutes">00</span><br>minutes</div>
-      <div><span id="seconds">00</span><br>seconds</div>
+    <div class="countdown">
+      <div><span id="d">00</span><br>days</div>
+      <div><span id="h">00</span><br>hrs</div>
+      <div><span id="m">00</span><br>min</div>
+      <div><span id="s">00</span><br>sec</div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ================= details ================= -->
-  <section class="fade-in">
-    <p id="event-date-time">saturday, 14 september 2026 · 4:00 pm</p>
-    <p id="event-details">
-      join us as we celebrate our union surrounded by love, family, and friends.
-    </p>
+<!-- ================= IMAGE STORY ================= -->
+<section class="image-section" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552')">
+  <div class="section-inner reveal">
+    <h2>our forever begins</h2>
+    <p>saturday · 14 september 2026</p>
+  </div>
+</section>
 
-    <a
-      id="location-link-btn"
-      href="https://maps.google.com/?q=Tuscany,Italy"
-      target="_blank"
-      class="primary-btn"
-    >
-      view location
-    </a>
-  </section>
+<!-- ================= LOCATION ================= -->
+<section>
+  <div class="section-inner reveal">
+    <p>tuscany, italy · 4:00 pm</p>
+    <a class="btn" href="https://maps.google.com/?q=Tuscany,Italy" target="_blank">view location</a>
+  </div>
+</section>
 
-  <!-- ================= gallery ================= -->
-  <section class="fade-in">
-    <h2>our moments</h2>
-    <div class="gallery-grid">
-      <img src="https://images.unsplash.com/photo-1519741497674-611481863552">
-      <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e">
-      <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9">
-      <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9">
-    </div>
-  </section>
+<!-- ================= RSVP ================= -->
+<section>
+  <div class="section-inner reveal">
+    <h2>celebrate with us</h2>
+    <a class="btn" href="#rsvp">rsvp</a>
+    <a class="btn" href="#gift">gift registry</a>
+  </div>
+</section>
 
-  <!-- ================= single song info ================= -->
-  <section class="song-section fade-in">
-    <p class="song-title">🎵 our song — playing in the background</p>
-    <button class="secondary-btn" onclick="toggleMusic()">play / pause song</button>
-  </section>
-
-  <!-- ================= actions ================= -->
-  <section class="fade-in">
-    <a id="rsvp-btn" href="#rsvp-form" class="primary-btn">rsvp</a>
-    <a id="gift-btn" href="#gift-registry" class="secondary-btn">gift registry</a>
-    <button id="share-btn" class="secondary-btn">share invitation</button>
-  </section>
-
-  <!-- ================= message ================= -->
-  <section class="fade-in">
+<!-- ================= MESSAGE ================= -->
+<section>
+  <div class="section-inner reveal">
     <h2>leave us a message</h2>
-    <form id="confirm-form">
-      <input type="text" placeholder="your name" required>
+    <form>
+      <input placeholder="your name" required>
       <textarea placeholder="your message"></textarea>
-      <button class="primary-btn">send</button>
+      <button class="btn">send</button>
     </form>
-  </section>
+  </div>
+</section>
 
-  <script>
-    /* ================= countdown ================= */
-    const weddingDate = new Date("2026-09-14T16:00:00").getTime();
+<script>
+/* ================= INTRO + MUSIC ================= */
+const music=document.getElementById("music");
+const intro=document.getElementById("intro");
+const musicBtn=document.getElementById("musicBtn");
 
-    setInterval(() => {
-      const now = new Date().getTime();
-      const d = weddingDate - now;
-      if (d < 0) return;
+function openInvite(){
+  intro.classList.add("hidden");
+  music.play();
+}
 
-      days.innerText = Math.floor(d / (1000 * 60 * 60 * 24));
-      hours.innerText = Math.floor((d / (1000 * 60 * 60)) % 24);
-      minutes.innerText = Math.floor((d / (1000 * 60)) % 60);
-      seconds.innerText = Math.floor((d / 1000) % 60);
-    }, 1000);
+function toggleMusic(){
+  if(music.paused){music.play();musicBtn.textContent="⏸"}
+  else{music.pause();musicBtn.textContent="▶"}
+}
 
-    /* ================= music ================= */
-    const music = document.getElementById("music-player");
-    const toggle = document.getElementById("music-toggle");
+/* ================= COUNTDOWN ================= */
+const date=new Date("2026-09-14T16:00:00").getTime();
+setInterval(()=>{
+  const now=Date.now(),d=date-now;
+  if(d<0)return;
+  dEl.innerText=Math.floor(d/86400000);
+  h.innerText=Math.floor(d/3600000)%24;
+  m.innerText=Math.floor(d/60000)%60;
+  s.innerText=Math.floor(d/1000)%60;
+},1000);
 
-    function toggleMusic() {
-      if (music.paused) {
-        music.play();
-        toggle.textContent = "⏸";
-      } else {
-        music.pause();
-        toggle.textContent = "▶";
-      }
-    }
-
-    toggle.onclick = toggleMusic;
-
-    /* ================= scroll reveal ================= */
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
-
-    /* ================= share ================= */
-    document.getElementById("share-btn").onclick = () => {
-      alert("share functionality placeholder");
-    };
-  </script>
+/* ================= SCROLL REVEAL ================= */
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>x.isIntersecting&&x.target.classList.add("show"));
+},{threshold:.3});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+</script>
 
 </body>
 </html>
