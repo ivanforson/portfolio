@@ -43,7 +43,6 @@ body{
 .intro-content{
   text-align:center;
   color:white;
-  padding:20px;
 }
 
 .intro-content h1{
@@ -78,6 +77,7 @@ section{
 
 .section-inner{
   max-width:420px;
+  width:100%;
 }
 
 /* ================= HERO ================= */
@@ -109,7 +109,7 @@ section{
   margin-top:10px;
 }
 
-/* ================= TEXT REVEAL ================= */
+/* ================= REVEAL ================= */
 .reveal{
   opacity:0;
   transform:translateY(30px);
@@ -126,7 +126,7 @@ section{
   display:flex;
   justify-content:center;
   gap:10px;
-  margin-top:20px;
+  margin:20px 0;
 }
 
 .countdown div{
@@ -136,10 +136,21 @@ section{
   min-width:60px;
 }
 
+/* ================= CALENDAR ================= */
+.calendar{
+  margin-top:16px;
+}
+
+.calendar .btn{
+  background:white;
+  color:var(--accent);
+  border:1px solid var(--accent);
+}
+
 /* ================= BUTTONS ================= */
 .btn{
   display:block;
-  margin:12px auto;
+  margin:10px auto;
   padding:14px;
   border-radius:30px;
   text-decoration:none;
@@ -165,22 +176,12 @@ section{
   position:fixed;
   bottom:80px;
   right:20px;
-  font-size:0.75rem;
+  font-size:.75rem;
   color:white;
   background:rgba(0,0,0,.45);
   padding:6px 10px;
   border-radius:20px;
   z-index:100;
-  opacity:.9;
-}
-
-/* ================= FORM ================= */
-form input,form textarea{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border-radius:6px;
-  border:1px solid #ccc;
 }
 </style>
 </head>
@@ -189,7 +190,7 @@ form input,form textarea{
 
 <!-- ================= AUDIO ================= -->
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8c7c2a1d5a.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8c7c2a1d5a.mp3">
 </audio>
 
 <!-- ================= INTRO ================= -->
@@ -201,7 +202,6 @@ form input,form textarea{
   </div>
 </div>
 
-<!-- ================= MUSIC UI ================= -->
 <button id="musicBtn" onclick="toggleMusic()">⏸</button>
 <p id="music-label">🎵 background song playing</p>
 
@@ -213,39 +213,38 @@ form input,form textarea{
   </div>
 </section>
 
-<!-- ================= COUNTDOWN ================= -->
+<!-- ================= COUNTDOWN + CALENDAR (FIXED) ================= -->
 <section>
   <div class="section-inner reveal">
     <h2>we’re getting married in</h2>
+
     <div class="countdown">
       <div><span id="d">00</span><br>days</div>
       <div><span id="h">00</span><br>hrs</div>
       <div><span id="m">00</span><br>min</div>
       <div><span id="s">00</span><br>sec</div>
     </div>
+
+    <!-- CALENDAR NOW VISIBLE HERE -->
+    <div class="calendar">
+      <p style="margin-bottom:10px;">save the date</p>
+
+      <a
+        class="btn"
+        href="https://www.google.com/calendar/render?action=TEMPLATE&text=Ana+%26+Miguel+Wedding&dates=20260914T160000/20260914T200000&location=Tuscany,Italy"
+        target="_blank"
+      >
+        add to google calendar
+      </a>
+
+      <a class="btn" href="wedding-event.ics" download>
+        add to apple / outlook
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- ================= CALENDAR ================= -->
-<section>
-  <div class="section-inner reveal">
-    <p style="margin-bottom:12px;">save the date</p>
-
-    <a
-      class="btn"
-      href="https://www.google.com/calendar/render?action=TEMPLATE&text=Ana+%26+Miguel+Wedding&dates=20260914T160000/20260914T200000&details=Wedding+celebration&location=Tuscany,Italy"
-      target="_blank"
-    >
-      add to google calendar
-    </a>
-
-    <a class="btn" href="wedding-event.ics" download>
-      add to apple / outlook
-    </a>
-  </div>
-</section>
-
-<!-- ================= IMAGE STORY ================= -->
+<!-- ================= STORY ================= -->
 <section class="hero" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552')">
   <div class="section-inner reveal">
     <h2>our forever begins</h2>
@@ -253,83 +252,31 @@ form input,form textarea{
   </div>
 </section>
 
-<!-- ================= LOCATION ================= -->
-<section>
-  <div class="section-inner reveal">
-    <p>tuscany, italy · 4:00 pm</p>
-    <a class="btn" href="https://maps.google.com/?q=Tuscany,Italy" target="_blank">
-      view location
-    </a>
-  </div>
-</section>
-
-<!-- ================= RSVP ================= -->
-<section>
-  <div class="section-inner reveal">
-    <h2>celebrate with us</h2>
-    <a class="btn" href="#rsvp">rsvp</a>
-    <a class="btn" href="#gift">gift registry</a>
-  </div>
-</section>
-
-<!-- ================= MESSAGE ================= -->
-<section>
-  <div class="section-inner reveal">
-    <h2>leave us a message</h2>
-    <form>
-      <input placeholder="your name" required>
-      <textarea placeholder="your message"></textarea>
-      <button class="btn">send</button>
-    </form>
-  </div>
-</section>
-
 <script>
-/* ================= INTRO + MUSIC ================= */
-const music = document.getElementById("music");
-const intro = document.getElementById("intro");
-const musicBtn = document.getElementById("musicBtn");
-const musicLabel = document.getElementById("music-label");
-
-function openInvite(){
-  intro.classList.add("hidden");
-  music.play();
-}
-
+/* intro + music */
+const music=document.getElementById("music");
+const intro=document.getElementById("intro");
+function openInvite(){intro.classList.add("hidden");music.play();}
 function toggleMusic(){
-  if(music.paused){
-    music.play();
-    musicBtn.textContent="⏸";
-    musicLabel.textContent="🎵 background song playing";
-  } else {
-    music.pause();
-    musicBtn.textContent="▶";
-    musicLabel.textContent="🎵 background song paused";
-  }
+  if(music.paused){music.play();musicBtn.textContent="⏸";music-label.textContent="🎵 background song playing";}
+  else{music.pause();musicBtn.textContent="▶";music-label.textContent="🎵 background song paused";}
 }
 
-/* ================= COUNTDOWN ================= */
-const weddingDate = new Date("2026-09-14T16:00:00").getTime();
-
+/* countdown */
+const date=new Date("2026-09-14T16:00:00").getTime();
 setInterval(()=>{
-  const now = Date.now();
-  const diff = weddingDate - now;
-  if(diff < 0) return;
-
-  d.textContent = Math.floor(diff / 86400000);
-  h.textContent = Math.floor(diff / 3600000) % 24;
-  m.textContent = Math.floor(diff / 60000) % 60;
-  s.textContent = Math.floor(diff / 1000) % 60;
+  const d0=date-Date.now(); if(d0<0)return;
+  d.textContent=Math.floor(d0/86400000);
+  h.textContent=Math.floor(d0/3600000)%24;
+  m.textContent=Math.floor(d0/60000)%60;
+  s.textContent=Math.floor(d0/1000)%60;
 },1000);
 
-/* ================= SCROLL REVEAL ================= */
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add("show");
-  });
-},{threshold:0.3});
-
-document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+/* reveal */
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>x.isIntersecting&&x.target.classList.add("show"));
+},{threshold:.3});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 </script>
 
 </body>
