@@ -33,24 +33,38 @@ body{
   justify-content:center;
   z-index:9999;
   transition:opacity 1s ease;
+  pointer-events:auto;
 }
-.intro.hidden{opacity:0;pointer-events:none}
+
+.intro.hidden{
+  opacity:0;
+  pointer-events:none;
+}
 
 .intro-content{
   text-align:center;
   color:white;
 }
+
 .intro-content h1{
   font-family:'Playfair Display',serif;
   font-size:2.2rem;
+  margin-bottom:10px;
 }
+
+.intro-content p{
+  opacity:.8;
+  margin-bottom:20px;
+}
+
 .intro-content button{
   background:var(--accent);
   color:white;
   border:none;
   padding:14px 28px;
   border-radius:30px;
-  margin-top:20px;
+  font-size:1rem;
+  cursor:pointer;
 }
 
 /* ================= SECTIONS ================= */
@@ -59,8 +73,8 @@ section{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:30px 16px;
   text-align:center;
+  padding:30px 16px;
 }
 
 .section-inner{
@@ -74,21 +88,28 @@ section{
   color:white;
   position:relative;
 }
+
 .hero::after{
   content:"";
   position:absolute;
   inset:0;
   background:rgba(0,0,0,.35);
 }
+
 .hero .section-inner{
   position:relative;
   z-index:2;
 }
+
 .hero h1{
   font-family:'Playfair Display',serif;
   font-size:2.6rem;
 }
-.hero p{font-style:italic}
+
+.hero p{
+  font-style:italic;
+  margin-top:10px;
+}
 
 /* ================= REVEAL ================= */
 .reveal{
@@ -96,6 +117,7 @@ section{
   transform:translateY(30px);
   transition:all 1s ease;
 }
+
 .reveal.show{
   opacity:1;
   transform:translateY(0);
@@ -106,8 +128,9 @@ section{
   display:flex;
   justify-content:center;
   gap:10px;
-  margin-top:20px;
+  margin:20px 0;
 }
+
 .countdown div{
   background:white;
   padding:10px;
@@ -117,65 +140,28 @@ section{
 
 /* ================= CALENDAR ================= */
 .calendar{
-  margin-top:30px;
+  margin-top:16px;
+}
+
+.calendar .btn{
   background:white;
-  border-radius:16px;
-  padding:20px;
-}
-.calendar h3{
-  font-family:'Playfair Display',serif;
-  margin-bottom:10px;
-}
-.calendar-grid{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:6px;
-  font-size:0.8rem;
-}
-.calendar-grid span{
-  padding:8px 0;
-  opacity:.6;
-}
-.calendar-grid .day{
-  opacity:1;
-}
-.calendar-grid .wedding-day{
-  background:var(--accent);
-  color:white;
-  border-radius:50%;
-  font-weight:600;
+  color:var(--accent);
+  border:1px solid var(--accent);
 }
 
-/* ================= IMAGE SECTION ================= */
-.image-section{
-  background-size:cover;
-  background-position:center;
-  position:relative;
-  color:white;
-}
-.image-section::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.35);
-}
-.image-section .section-inner{
-  position:relative;
-  z-index:2;
-}
-
-/* ================= BUTTON ================= */
+/* ================= BUTTONS ================= */
 .btn{
   display:block;
-  margin:12px auto;
+  margin:10px auto;
   padding:14px;
   border-radius:30px;
+  text-decoration:none;
   background:var(--accent);
   color:white;
-  text-decoration:none;
+  font-size:1rem;
 }
 
-/* ================= MUSIC BUTTON ================= */
+/* ================= MUSIC ================= */
 #musicBtn{
   position:fixed;
   bottom:20px;
@@ -186,6 +172,19 @@ section{
   padding:14px;
   border-radius:50%;
   z-index:100;
+  cursor:pointer;
+}
+
+#music-label{
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  font-size:.75rem;
+  color:white;
+  background:rgba(0,0,0,.45);
+  padding:6px 10px;
+  border-radius:20px;
+  z-index:100;
 }
 </style>
 </head>
@@ -193,8 +192,8 @@ section{
 <body>
 
 <!-- ================= AUDIO ================= -->
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8c7c2a1d5a.mp3" type="audio/mpeg">
+<audio id="music" loop preload="none">
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8c7c2a1d5a.mp3">
 </audio>
 
 <!-- ================= INTRO ================= -->
@@ -202,11 +201,13 @@ section{
   <div class="intro-content">
     <h1>ana & miguel</h1>
     <p>tap to open invitation</p>
-    <button onclick="openInvite()">open</button>
+    <button id="openBtn">open</button>
   </div>
 </div>
 
-<button id="musicBtn" onclick="toggleMusic()">⏸</button>
+<!-- ================= MUSIC UI ================= -->
+<button id="musicBtn">▶</button>
+<p id="music-label">🎵 background song paused</p>
 
 <!-- ================= HERO ================= -->
 <section class="hero">
@@ -228,66 +229,115 @@ section{
       <div><span id="s">00</span><br>sec</div>
     </div>
 
-    <!-- CALENDAR -->
     <div class="calendar">
-      <h3>september 2026</h3>
-      <div class="calendar-grid">
-        <span>su</span><span>mo</span><span>tu</span><span>we</span><span>th</span><span>fr</span><span>sa</span>
+      <p style="margin-bottom:10px;">save the date</p>
 
-        <span></span><span class="day">1</span><span class="day">2</span><span class="day">3</span><span class="day">4</span><span class="day">5</span><span class="day">6</span>
-        <span class="day">7</span><span class="day">8</span><span class="day">9</span><span class="day">10</span><span class="day">11</span><span class="day">12</span><span class="day">13</span>
-        <span class="day wedding-day">14</span><span class="day">15</span><span class="day">16</span><span class="day">17</span><span class="day">18</span><span class="day">19</span><span class="day">20</span>
-      </div>
+      <a
+        class="btn"
+        href="https://www.google.com/calendar/render?action=TEMPLATE&text=Ana+%26+Miguel+Wedding&dates=20260914T160000/20260914T200000&location=Tuscany,Italy"
+        target="_blank"
+      >
+        add to google calendar
+      </a>
+
+      <a class="btn" href="wedding-event.ics" download>
+        add to apple / outlook
+      </a>
     </div>
-
   </div>
 </section>
 
-<!-- ================= IMAGE STORY ================= -->
-<section class="image-section" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552')">
+<!-- ================= LOCATION ================= -->
+<section>
   <div class="section-inner reveal">
-    <h2>our forever begins</h2>
-    <p>tuscany · 4:00 pm</p>
+    <p>tuscany, italy · 4:00 pm</p>
+    <a
+      class="btn"
+      href="https://maps.google.com/?q=Tuscany,Italy"
+      target="_blank"
+    >
+      view location
+    </a>
+  </div>
+</section>
+
+<!-- ================= RSVP ================= -->
+<section>
+  <div class="section-inner reveal">
+    <h2>celebrate with us</h2>
+    <a class="btn" href="#rsvp">rsvp</a>
+    <a class="btn" href="#gift">gift registry</a>
+  </div>
+</section>
+
+<!-- ================= GUEST GALLERY ================= -->
+<section>
+  <div class="section-inner reveal">
+    <h2>share your moments</h2>
+    <a class="btn" href="#guest-gallery">
+      upload guest photos
+    </a>
+  </div>
+</section>
+
+<!-- ================= MESSAGE ================= -->
+<section>
+  <div class="section-inner reveal">
+    <h2>leave us a message</h2>
+    <form>
+      <input placeholder="your name" required>
+      <textarea placeholder="your message"></textarea>
+      <button class="btn">send</button>
+    </form>
   </div>
 </section>
 
 <script>
-/* ================= INTRO + MUSIC ================= */
-const music=document.getElementById("music");
-const intro=document.getElementById("intro");
-const musicBtn=document.getElementById("musicBtn");
+/* intro + music */
+const music = document.getElementById("music");
+const intro = document.getElementById("intro");
+const openBtn = document.getElementById("openBtn");
+const musicBtn = document.getElementById("musicBtn");
+const musicLabel = document.getElementById("music-label");
 
-function openInvite(){
+openBtn.addEventListener("click", () => {
   intro.classList.add("hidden");
-  music.play();
-}
+  music.play().then(()=>{
+    musicBtn.textContent="⏸";
+    musicLabel.textContent="🎵 background song playing";
+  }).catch(()=>{});
+});
 
-function toggleMusic(){
+musicBtn.onclick = () => {
   if(music.paused){
     music.play();
     musicBtn.textContent="⏸";
-  }else{
+    musicLabel.textContent="🎵 background song playing";
+  } else {
     music.pause();
     musicBtn.textContent="▶";
+    musicLabel.textContent="🎵 background song paused";
   }
-}
+};
 
-/* ================= COUNTDOWN ================= */
-const date=new Date("2026-09-14T16:00:00").getTime();
+/* countdown */
+const date = new Date("2026-09-14T16:00:00").getTime();
 setInterval(()=>{
-  const now=Date.now(),diff=date-now;
-  if(diff<0)return;
-  d.innerText=Math.floor(diff/86400000);
-  h.innerText=Math.floor(diff/3600000)%24;
-  m.innerText=Math.floor(diff/60000)%60;
-  s.innerText=Math.floor(diff/1000)%60;
+  const diff = date - Date.now();
+  if(diff < 0) return;
+  d.textContent = Math.floor(diff / 86400000);
+  h.textContent = Math.floor(diff / 3600000) % 24;
+  m.textContent = Math.floor(diff / 60000) % 60;
+  s.textContent = Math.floor(diff / 1000) % 60;
 },1000);
 
-/* ================= SCROLL REVEAL ================= */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>e.isIntersecting&&e.target.classList.add("show"));
-},{threshold:.3});
-document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+/* reveal */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("show");
+  });
+},{threshold:0.3});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 </script>
 
 </body>
